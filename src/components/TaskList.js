@@ -1,7 +1,7 @@
 import React from "react";
 import Task from './Task';
 
-function TaskList({ taskArr, setTaskArr, cat }) {
+function TaskList({ taskArr, setTaskArr }) {
 //////////////////////////////////////////////////////
 // FILTER THROUGH THE TASKS ARRAY 
 function removeATask(clickDelete) {

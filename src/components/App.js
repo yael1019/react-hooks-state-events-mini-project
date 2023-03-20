@@ -4,16 +4,18 @@ import NewTaskForm from "./NewTaskForm";
 import TaskList from "./TaskList";
 
 import { CATEGORIES, TASKS } from "../data";
-console.log("Here's the data you're working with");
-console.log({ CATEGORIES, TASKS });
+// console.log("Here's the data you're working with");
+// console.log({ CATEGORIES, TASKS });
 
 function App() {
 ////////////////////////////////////////////////////////
 // SETTING STATE 
   const [taskArr, setTaskArr] = useState(TASKS)
-  const [cat, setCat] = useState(null)
-  const [input, setInput] = useState('')
-  const [newCat, setNewCat] = useState(null)
+  const [cat, setCat] = useState('All')
+  const [form, setForm] = useState({
+    input: '',
+    newCat: ''
+  })
 ////////////////////////////////////////////////////////
 //FUNCTION TO RESET CATEGORY
   function catClass(category) {
@@ -23,34 +25,39 @@ function App() {
 //FUNCTION FOR SUBMITTING FORM
   function submitForm(e) {
     e.preventDefault();
+
     setTaskArr([
       ...TASKS,
       {
-        text: input,
-        category: newCat
+        text: form.input,
+        category: form.newCat
       }
     ])
-    setInput('');
-    setNewCat(null);
+    setForm({
+      input: '',
+      newCat: ''
+    })
   }
 ///////////////////////////////////////////////////////
-//FUNCTIONS FOR NEW FORM
-  function forNewCat(e) {
-    setNewCat(e.target.value);
-  }
+//FUNCTION FOR NEW FORM
+  function handleChange(e) {
+    let key = e.target.id;
+    let value = e.target.value;
 
-  function forNewInput(e) {
-    setInput(e.target.value);
+    setForm({
+      ...form,
+      [key]: value
+    })
   }
 ////////////////////////////////////////////////////////
 //FILTER THE TASKS ARRAY ACCORDING TO THE CATEGORY
-  const filterCategory = cat === null || cat === 'All' ? taskArr : taskArr.filter(task => task.category === cat)
+  const filterCategory = cat === 'All' ? taskArr : taskArr.filter(task => task.category === cat)
 ///////////////////////////////////////////////////////
   return (
     <div className="App">
       <h2>My tasks</h2>
       <CategoryFilter categories={ CATEGORIES } catClass={ catClass } cat={ cat } />
-      <NewTaskForm categories = { CATEGORIES } newCat={ newCat } input={ input } forNewCat={ forNewCat } forNewInput={ forNewInput } submitForm={ submitForm }/>
+      <NewTaskForm categories = { CATEGORIES } form={ form } handleChange={ handleChange } submitForm={ submitForm }/>
       <TaskList taskArr={ filterCategory } setTaskArr={ setTaskArr } cat={ cat } />
     </div>
   );
