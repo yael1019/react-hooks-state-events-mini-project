@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Task from './Task';
 
-function TaskList({ taskArr, setTaskArr }) {
+function TaskList({ taskArr, setTaskArr, cat }) {
 //////////////////////////////////////////////////////
 // FILTER THROUGH THE TASKS ARRAY 
 function removeATask(clickDelete) {
