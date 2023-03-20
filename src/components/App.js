@@ -33,7 +33,8 @@ function App() {
     setInput('');
     setNewCat(null);
   }
-
+///////////////////////////////////////////////////////
+//FUNCTIONS FOR NEW FORM
   function forNewCat(e) {
     setNewCat(e.target.value);
   }
